@@ -1,0 +1,12 @@
+# ninja log v5
+0	11599	1687626376894783733	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/interpolate.o	953f435b1ab9f4e1
+1	11611	1687626376906784045	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/cylinder_query.o	8edc49473350653
+2	11643	1687626376938784873	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/group_points.o	875fa48514e68561
+3	11682	1687626376978785909	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/sampling.o	faa8565d47df59d8
+0	11686	1687626376982786013	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/ball_query.o	241c4cebe1108781
+1	13401	1687626378694830338	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/bindings.o	99d298a281c9b986
+1	26330	1687626391619164317	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/ball_query_gpu.o	9d8423c3b303a6d8
+2	26599	1687626391887171231	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/group_points_gpu.o	8f51709b2ae79abc
+2	26918	1687626392207179485	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/interpolate_gpu.o	f5e846562f0e040b
+2	26989	1687626392275181240	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/cylinder_query_gpu.o	a64d6a57f4292a53
+3	28958	1687626394243231991	/root/b1-mobile-manipulation/graspness_implementation/graspnessAPI/pointnet2_pytorch/pointnet2_ops_lib/build/temp.linux-x86_64-cpython-39/pointnet2_ops/_ext-src/src/sampling_gpu.o	db71d523d1afd377

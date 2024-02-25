@@ -1,0 +1,489 @@
+habitat:
+  seed: 100
+  env_task: GymHabitatEnv
+  env_task_gym_dependencies: []
+  env_task_gym_id: ''
+  environment:
+    max_episode_steps: 300
+    max_episode_seconds: 10000000
+    iterator_options:
+      cycle: true
+      shuffle: true
+      group_by_scene: true
+      num_episode_sample: -1
+      max_scene_repeat_episodes: -1
+      max_scene_repeat_steps: 10000
+      step_repetition_range: 0.2
+  simulator:
+    type: RearrangeSim-v0
+    action_space_config: v0
+    action_space_config_arguments: {}
+    forward_step_size: 0.25
+    create_renderer: false
+    requires_textures: true
+    auto_sleep: true
+    step_physics: true
+    concur_render: true
+    needs_markers: false
+    update_articulated_agent: true
+    scene: data/scene_datasets/habitat-test-scenes/van-gogh-room.glb
+    scene_dataset: default
+    additional_object_paths:
+    - data/objects/ycb/configs/
+    seed: ${habitat.seed}
+    turn_angle: 10
+    tilt_angle: 15
+    default_agent_id: 0
+    debug_render: false
+    debug_render_articulated_agent: false
+    kinematic_mode: false
+    debug_render_goal: true
+    robot_joint_start_noise: 0.0
+    ctrl_freq: 120.0
+    ac_freq_ratio: 4
+    load_objs: true
+    hold_thresh: 0.15
+    grasp_impulse: 10000.0
+    agents:
+      main_agent:
+        height: 1.5
+        radius: 0.5
+        grasp_managers: 1
+        sim_sensors:
+          head_rgb_sensor:
+            type: HabitatSimRGBSensor
+            height: 256
+            width: 256
+            position:
+            - 0.0
+            - 1.25
+            - 0.0
+            orientation:
+            - 0.0
+            - 0.0
+            - 0.0
+            hfov: 90
+            sensor_subtype: PINHOLE
+            noise_model: None
+            noise_model_kwargs: {}
+            uuid: head_rgb
+          head_depth_sensor:
+            type: HabitatSimDepthSensor
+            height: 256
+            width: 256
+            position:
+            - 0.0
+            - 1.25
+            - 0.0
+            orientation:
+            - 0.0
+            - 0.0
+            - 0.0
+            hfov: 90
+            sensor_subtype: PINHOLE
+            noise_model: None
+            noise_model_kwargs: {}
+            min_depth: 0.0
+            max_depth: 10.0
+            normalize_depth: true
+            uuid: head_depth
+          arm_rgb_sensor:
+            type: HabitatSimRGBSensor
+            height: 256
+            width: 256
+            position:
+            - 0.0
+            - 1.25
+            - 0.0
+            orientation:
+            - 0.0
+            - 0.0
+            - 0.0
+            hfov: 90
+            sensor_subtype: PINHOLE
+            noise_model: None
+            noise_model_kwargs: {}
+            uuid: articulated_agent_arm_rgb
+          arm_depth_sensor:
+            type: HabitatSimDepthSensor
+            height: 256
+            width: 256
+            position:
+            - 0.0
+            - 1.25
+            - 0.0
+            orientation:
+            - 0.0
+            - 0.0
+            - 0.0
+            hfov: 90
+            sensor_subtype: PINHOLE
+            noise_model: None
+            noise_model_kwargs: {}
+            min_depth: 0.0
+            max_depth: 10.0
+            normalize_depth: true
+            uuid: articulated_agent_arm_depth
+          arm_panoptic_sensor:
+            type: HabitatSimSemanticSensor
+            height: 256
+            width: 256
+            position:
+            - 0.0
+            - 1.25
+            - 0.0
+            orientation:
+            - 0.0
+            - 0.0
+            - 0.0
+            hfov: 90
+            sensor_subtype: PINHOLE
+            noise_model: None
+            noise_model_kwargs: {}
+            uuid: articulated_agent_arm_panoptic
+        is_set_start_state: false
+        start_position:
+        - 0.0
+        - 0.0
+        - 0.0
+        start_rotation:
+        - 0.0
+        - 0.0
+        - 0.0
+        - 1.0
+        joint_start_noise: 0.1
+        articulated_agent_urdf: ./data/robots/hab_b1_z1/hab_b1_z1.urdf
+        articulated_agent_type: B1Robot
+        ik_arm_urdf: data/robots/hab_fetch/robots/fetch_onlyarm.urdf
+        motion_data_path: ''
+    agents_order: ???
+    habitat_sim_v0:
+      gpu_device_id: 0
+      gpu_gpu: false
+      allow_sliding: false
+      frustum_culling: true
+      enable_physics: true
+      physics_config_file: ./data/default.physics_config.json
+      leave_context_with_background_renderer: false
+      enable_gfx_replay_save: false
+    ep_info: null
+    object_ids_start: 100
+  task:
+    reward_measure: pick_reward
+    success_measure: pick_success
+    success_reward: 2.0
+    slack_reward: -0.01
+    end_on_success: true
+    type: RearrangePickTask-v0
+    lab_sensors:
+      target_start_sensor:
+        type: TargetStartSensor
+        goal_format: CARTESIAN
+        dimensionality: 3
+      joint_sensor:
+        type: JointSensor
+        dimensionality: 6
+      is_holding_sensor:
+        type: IsHoldingSensor
+      end_effector_sensor:
+        type: EEPositionSensor
+      end_effector_sensor_transformation:
+        type: EETransformationSensor
+      arm_camera_sensor_transformation:
+        type: ACTransformationSensor
+      relative_resting_pos_sensor:
+        type: RelativeRestingPositionSensor
+      grasp_sensor:
+        type: GraspSensor
+    measurements:
+      articulated_agent_force:
+        type: RobotForce
+        min_force: 20.0
+      force_terminate:
+        type: ForceTerminate
+        max_accum_force: 10000.0
+        max_instant_force: 10000.0
+      end_effector_to_rest_distance:
+        type: EndEffectorToRestDistance
+      end_effector_to_object_distance:
+        type: EndEffectorToObjectDistance
+      did_pick_object:
+        type: DidPickObjectMeasure
+      pick_success:
+        type: RearrangePickSuccess
+        ee_resting_success_threshold: 0.15
+      grasp_distance_measure:
+        type: GraspingDistanceReward
+        max_force_pen: 0.00
+        force_pen: 0.0
+      grasp_ori_measure:
+        type: GraspingOrientationReward
+        max_force_pen: 0.00
+        force_pen: 0.0
+      grasp_nodes_measure:
+        type: GraspingNodesReward
+        max_force_pen: 0.00
+        force_pen: 0.0
+      grasp_edges_measure:
+        type: GraspingEdgesReward
+        max_force_pen: 0.00
+        force_pen: 0.0
+
+
+
+      # grasp_infogain_reward:
+      #   type: GraspingInfoGainReward
+      #   max_force_pen: 0.01 #never used
+      #   force_pen: 1.0 #never used
+      # grasp_distance_reward:
+      #   type: GraspingDistanceReward
+      #   max_force_pen: 0.01 #never used
+      #   force_pen: 1.0 #never used
+      pick_reward:
+        type: RearrangePickReward
+        dist_reward: 20.0
+        pick_reward: 10.0
+        constraint_violate_pen: 1.0
+        drop_pen: 0.5
+        wrong_pick_pen: 5.0
+        force_pen: 0.0001
+        max_force_pen: 0.01
+        force_end_pen: 1.0
+        use_diff: true
+        drop_obj_should_end: true
+        wrong_pick_should_end: true
+      did_violate_hold_constraint:
+        type: DidViolateHoldConstraintMeasure
+      num_steps:
+        type: NumStepsMeasure
+    goal_sensor_uuid: pointgoal
+    count_obj_collisions: true
+    settle_steps: 5
+    constraint_violation_ends_episode: false
+    constraint_violation_drops_object: true
+    force_regenerate: false
+    should_save_to_cache: false
+    object_in_hand_sample_prob: 0.167
+    min_start_distance: 3.0
+    render_target: true
+    physics_stability_steps: 1
+    num_spawn_attempts: 200
+    spawn_max_dist_to_obj: 2.0
+    base_angle_noise: 0.523599
+    ee_sample_factor: 0.2
+    ee_exclude_region: 0.0
+    base_noise: 0.05
+    spawn_region_scale: 0.2
+    joint_max_impulse: -1.0
+    desired_resting_position:
+    - 0.5
+    - 0.0
+    - 1.0
+    use_marker_t: true
+    cache_robot_init: false
+    success_state: 0.0
+    should_enforce_target_within_reach: false
+    task_spec_base_path: habitat/task/rearrange/pddl/
+    task_spec: ''
+    pddl_domain_def: replica_cad
+    obj_succ_thresh: 0.3
+    enable_safe_drop: false
+    art_succ_thresh: 0.15
+    robot_at_thresh: 2.0
+    filter_nav_to_tasks: []
+    actions:
+      arm_action:
+        type: ArmAction
+        agent_index: 0
+        arm_controller: ArmRelPosMaskAction
+        grip_controller: GazeGraspAction
+        arm_joint_mask:
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        - 1
+        arm_joint_dimensionality: 6
+        grasp_thresh_dist: 0.15
+        disable_grip: false
+        delta_pos_limit: 0.0125
+        ee_ctrl_lim: 0.015
+        should_clip: false
+        render_ee_target: false
+        gaze_distance_range:
+        - 0.01
+        - 0.4
+        center_cone_angle_threshold: 15.0
+        center_cone_vector:
+        - 0.0
+        - 1.0
+        - 0.0
+      base_velocity_non_cylinder:
+        type: BaseVelNonCylinderAction
+        agent_index: 0
+        longitudinal_lin_speed: 10.0
+        lateral_lin_speed: 10.0
+        ang_speed: 10.0
+        allow_dyn_slide: false
+        allow_back: true
+        collision_threshold: 1.0e-05
+        navmesh_offset:
+        - - 0.0
+          - 0.0
+        - - 0.25
+          - 0.0
+        - - -0.25
+          - 0.0
+        enable_lateral_move: true
+      stop:
+        type: StopAction
+        agent_index: 0
+  dataset:
+    type: RearrangeDataset-v0
+    split: train
+    scenes_dir: data/replica_cad/
+    content_scenes:
+    - '*'
+    data_path: data/datasets/replica_cad/rearrange/v1/{split}/b1_rearrange.json.gz
+  gym:
+    obs_keys:
+    - head_rgb
+    - head_depth
+    - articulated_agent_arm_rgb
+    - obj_start_sensor
+    - joint
+    - is_holding
+    - relative_resting_position
+    - articulated_agent_arm_depth
+    - articulated_agent_arm_panoptic
+    - grasp_sensor
+    action_keys: null
+    achieved_goal_keys: []
+    desired_goal_keys: []
+habitat_baselines:
+  evaluate: false
+  trainer_name: ddppo
+  updater_name: PPO
+  distrib_updater_name: DDPPO
+  torch_gpu_id: 0
+  tensorboard_dir: tb/pick_gsnet_11
+  writer_type: tb
+  video_dir: video_dir/pick_gsnet_11
+  video_fps: 5
+  test_episode_count: 20
+  eval_ckpt_path_dir: data/ckpts/pick_gsnet_11
+  num_environments: 8
+  num_processes: -1
+  rollout_storage_name: RolloutStorage
+  checkpoint_folder: data/ckpts/pick_gsnet_11
+  num_updates: -1
+  num_checkpoints: 30
+  checkpoint_interval: -1
+  total_num_steps: 30000000.0
+  log_interval: 10
+  log_file: train.log
+  force_blind_policy: false
+  verbose: false
+  eval_keys_to_include_in_name:
+  - reward
+  - success
+  force_torch_single_threaded: true
+  wb:
+    project_name: ''
+    entity: ''
+    group: ''
+    run_name: ''
+  load_resume_state_config: false
+  pretrained_weight_path: “”
+  eval:
+    split: val
+    use_ckpt_config: true
+    should_load_ckpt: true
+    evals_per_ep: 1
+    video_option: []
+    extra_sim_sensors:
+      third_rgb_sensor:
+        type: HabitatSimRGBSensor
+        height: 512
+        width: 512
+        position:
+        - 0.0
+        - 1.25
+        - 0.0
+        orientation:
+        - 0.0
+        - 0.0
+        - 0.0
+        hfov: 90
+        sensor_subtype: PINHOLE
+        noise_model: None
+        noise_model_kwargs: {}
+        uuid: third_rgb
+  profiling:
+    capture_start_step: -1
+    num_steps_to_capture: -1
+  rl:
+    agent:
+      type: SingleAgentAccessMgr
+    preemption:
+      append_slurm_job_id: false
+      save_resume_state_interval: 100
+      save_state_batch_only: false
+    policy:
+      name: PointNavResNetPolicy
+      action_distribution_type: gaussian
+      action_dist:
+        use_log_std: true
+        use_softplus: false
+        std_init: -1.0
+        log_std_init: 0.0
+        use_std_param: true
+        clamp_std: true
+        min_std: 1.0e-06
+        max_std: 1
+        min_log_std: -5
+        max_log_std: 2
+        action_activation: tanh
+        scheduled_std: false
+      obs_transforms: {}
+      hierarchical_policy: ???
+    ppo:
+      clip_param: 0.2
+      ppo_epoch: 2
+      num_mini_batch: 2
+      value_loss_coef: 0.5
+      entropy_coef: 0.001
+      lr: 0.0003
+      eps: 1.0e-05
+      max_grad_norm: 0.2
+      num_steps: 128
+      use_gae: true
+      use_linear_lr_decay: false
+      use_linear_clip_decay: false
+      gamma: 0.99
+      tau: 0.95
+      reward_window_size: 50
+      use_normalized_advantage: false
+      hidden_size: 512
+      entropy_target_factor: 0.0
+      use_adaptive_entropy_pen: false
+      use_clipped_value_loss: true
+      use_double_buffered_sampler: false
+    ddppo:
+      sync_frac: 0.6
+      distrib_backend: NCCL
+      rnn_type: LSTM
+      num_recurrent_layers: 2
+      backbone: resnet18
+      pretrained_weights: data/ddppo-models/gibson-2plus-resnet50.pth
+      pretrained: false
+      pretrained_encoder: false
+      train_encoder: true
+      reset_critic: true
+      force_distributed: false
+    ver:
+      variable_experience: true
+      num_inference_workers: 2
+      overlap_rollouts_and_learn: false
+    auxiliary_losses: {}
