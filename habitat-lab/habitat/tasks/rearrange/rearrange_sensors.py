@@ -443,7 +443,7 @@ class GraspSensor(UsesArticulatedAgentInterface, Sensor): #  articulated_camera 
         self._sim = sim
 
         seed_feat_dim = 512
-        checkpoint_path = "/home/habitat_mm/b1-mobile-manipulation/graspness_implementation/data/minkresunet_epoch10-1.tar"
+        checkpoint_path = "graspness_implementation/data/minkresunet_epoch10-1.tar"
         self.net = GraspNet(seed_feat_dim=seed_feat_dim, is_training=False)
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         self.net.to(self.device)

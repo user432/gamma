@@ -228,17 +228,6 @@ habitat:
         type: GraspingEdgesReward
         max_force_pen: 0.00
         force_pen: 0.0
-
-
-
-      # grasp_infogain_reward:
-      #   type: GraspingInfoGainReward
-      #   max_force_pen: 0.01 #never used
-      #   force_pen: 1.0 #never used
-      # grasp_distance_reward:
-      #   type: GraspingDistanceReward
-      #   max_force_pen: 0.01 #never used
-      #   force_pen: 1.0 #never used
       pick_reward:
         type: RearrangePickReward
         dist_reward: 20.0
@@ -367,16 +356,16 @@ habitat_baselines:
   updater_name: PPO
   distrib_updater_name: DDPPO
   torch_gpu_id: 0
-  tensorboard_dir: tb/pick_gsnet_11
+  tensorboard_dir: tb/gamma
   writer_type: tb
-  video_dir: video_dir/pick_gsnet_11
+  video_dir: video_dir/gamma
   video_fps: 5
   test_episode_count: 20
-  eval_ckpt_path_dir: data/ckpts/pick_gsnet_11
+  eval_ckpt_path_dir: data/ckpts/gamma
   num_environments: 8
   num_processes: -1
   rollout_storage_name: RolloutStorage
-  checkpoint_folder: data/ckpts/pick_gsnet_11
+  checkpoint_folder: data/ckpts/gamma
   num_updates: -1
   num_checkpoints: 30
   checkpoint_interval: -1

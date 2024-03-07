@@ -279,7 +279,7 @@ class RearrangePickReward(RearrangeReward):
         grasp_distance_measure = task.measurements.measures[GraspingDistanceReward.cls_uuid].get_metric()
 
         grasping_reward = 0
-
+        timestep = 0
         grasping_num = 64
 
         # add grasping reward
@@ -298,6 +298,8 @@ class RearrangePickReward(RearrangeReward):
             grasp_reward_infoGain = (observations["grasp_sensor"][grasping_num, 2] + observations["grasp_sensor"][grasping_num, 3]\
                                         + observations["grasp_sensor"][grasping_num, 4] + observations["grasp_sensor"][grasping_num, 5])/60
             
+            weight = 1 / (1 + np.exp(0.5 - timestep / 300))
+
             if self.prev_good_grasping_distance_measure is not None \
                 and self.prev_good_grasping_info_gain_measure is not None\
                  and self.prev_good_grasping_orientation_measure is not None:
@@ -306,7 +308,7 @@ class RearrangePickReward(RearrangeReward):
                 grasp_orientation_difference = (self.prev_good_grasping_orientation_measure - grasp_reward_orientation)
                 grasp_infoGain_difference = (grasp_reward_infoGain - self.prev_good_grasping_info_gain_measure)
                 
-                grasping_reward = (grasp_distance_difference * 100) + (grasp_orientation_difference * 10) + (grasp_infoGain_difference * 30)
+                grasping_reward = (grasp_distance_difference + grasp_orientation_difference)*(1 - weight) + (grasp_infoGain_difference * weight)
                 
             self.prev_good_grasping_distance_measure = grasp_reward_distance 
             self.prev_good_grasping_info_gain_measure = grasp_reward_infoGain
@@ -314,7 +316,7 @@ class RearrangePickReward(RearrangeReward):
 
             
             self._metric += grasping_reward
-            
+            timestep += 1
             if grasp_distance_measure < 0.1:
                 self._task.should_end = True
 

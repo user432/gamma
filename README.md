@@ -56,6 +56,10 @@ For more information, please visit our [**project page**](https://pku-epic.githu
    pip install -e .
    ```
 
+1. **GSNet pre-trained model**
+  
+    Download the model from this [**link**](https://drive.google.com/file/d/1F_6EDdht1kr7bZCcgt54ieaIgWuvfS14/view?usp=sharing) and place it in `graspness_implementation/data/`
+
 ## Debugging an environment issue
 
 Our vectorized environments are very fast, but they are not very verbose. When using `VectorEnv` some errors may be silenced, resulting in process hanging or multiprocessing errors that are hard to interpret. We recommend setting the environment variable `HABITAT_ENV_DEBUG` to 1 when debugging (`export HABITAT_ENV_DEBUG=1`) as this will use the slower, but more verbose `ThreadedVectorEnv` class. Do not forget to reset `HABITAT_ENV_DEBUG` (`unset HABITAT_ENV_DEBUG`) when you are done debugging since `VectorEnv` is much faster than `ThreadedVectorEnv`.
@@ -63,6 +67,8 @@ Our vectorized environments are very fast, but they are not very verbose. When u
 ## Datasets
 
 [Common task and episode datasets used with Habitat-Lab](DATASETS.md).
+
+Please download the Rearrange Pick ReplicaCAD episode dataset and change its path accordingly in `habitat-baselines/habitat_baselines/config/rearrange/rearrange_w_grasping.yaml`
 
 ## Citation
 If you find our work useful in your research, please consider citing:
