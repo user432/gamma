@@ -52,8 +52,8 @@ habitat:
         sim_sensors:
           head_rgb_sensor:
             type: HabitatSimRGBSensor
-            height: 256
-            width: 256
+            height: 240
+            width: 320
             position:
             - 0.0
             - 1.25
@@ -69,8 +69,8 @@ habitat:
             uuid: head_rgb
           head_depth_sensor:
             type: HabitatSimDepthSensor
-            height: 256
-            width: 256
+            height: 240
+            width: 320
             position:
             - 0.0
             - 1.25
@@ -89,8 +89,8 @@ habitat:
             uuid: head_depth
           arm_rgb_sensor:
             type: HabitatSimRGBSensor
-            height: 256
-            width: 256
+            height: 240
+            width: 320
             position:
             - 0.0
             - 1.25
@@ -99,15 +99,15 @@ habitat:
             - 0.0
             - 0.0
             - 0.0
-            hfov: 90
+            hfov: 65
             sensor_subtype: PINHOLE
             noise_model: None
             noise_model_kwargs: {}
             uuid: articulated_agent_arm_rgb
           arm_depth_sensor:
             type: HabitatSimDepthSensor
-            height: 256
-            width: 256
+            height: 240
+            width: 320
             position:
             - 0.0
             - 1.25
@@ -116,7 +116,7 @@ habitat:
             - 0.0
             - 0.0
             - 0.0
-            hfov: 90
+            hfov: 65
             sensor_subtype: PINHOLE
             noise_model: None
             noise_model_kwargs: {}
@@ -126,8 +126,8 @@ habitat:
             uuid: articulated_agent_arm_depth
           arm_panoptic_sensor:
             type: HabitatSimSemanticSensor
-            height: 256
-            width: 256
+            height: 240
+            width: 320
             position:
             - 0.0
             - 1.25
@@ -136,7 +136,7 @@ habitat:
             - 0.0
             - 0.0
             - 0.0
-            hfov: 90
+            hfov: 65
             sensor_subtype: PINHOLE
             noise_model: None
             noise_model_kwargs: {}
@@ -337,13 +337,10 @@ habitat:
     data_path: data/datasets/replica_cad/rearrange/v1/{split}/b1_rearrange.json.gz
   gym:
     obs_keys:
-    - head_rgb
     - head_depth
-    - articulated_agent_arm_rgb
     - obj_start_sensor
     - joint
     - is_holding
-    - relative_resting_position
     - articulated_agent_arm_depth
     - articulated_agent_arm_panoptic
     - grasp_sensor
@@ -362,7 +359,7 @@ habitat_baselines:
   video_fps: 5
   test_episode_count: 20
   eval_ckpt_path_dir: data/ckpts/gamma
-  num_environments: 8
+  num_environments: 4
   num_processes: -1
   rollout_storage_name: RolloutStorage
   checkpoint_folder: data/ckpts/gamma

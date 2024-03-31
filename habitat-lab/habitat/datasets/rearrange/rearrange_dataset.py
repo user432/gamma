@@ -37,6 +37,7 @@ class RearrangeEpisode(Episode):
     rigid_objs: List[Tuple[str, np.ndarray]]
     targets: Dict[str, np.ndarray]
     markers: List[Dict[str, Any]] = []
+    #scene_config_path: str
     target_receptacles: List[Tuple[str, int]] = []
     goal_receptacles: List[Tuple[str, int]] = []
     name_to_receptacle: Dict[str, str] = {}

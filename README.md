@@ -37,6 +37,8 @@ For more information, please visit our [**project page**](https://pku-epic.githu
 
    # install habitat-baselines
    pip install -e habitat-baselines
+   
+   pip install -U git+https://github.com/NVIDIA/MinkowskiEngine --no-deps
 
    cd GLtreeAPI/
    pip install -e .
@@ -55,10 +57,31 @@ For more information, please visit our [**project page**](https://pku-epic.githu
    cd ..
    pip install -e .
    ```
+1. **Scene datasets**
+    ```
+    # ReplicaCAD dataset
+    python -m habitat_sim.utils.datasets_download --uids replica_cad_dataset
+
+    # YCB dataset
+    python -m habitat_sim.utils.datasets_download --uids ycb 
+    ```
+
 
 1. **GSNet pre-trained model**
   
     Download the model from this [**link**](https://drive.google.com/file/d/1F_6EDdht1kr7bZCcgt54ieaIgWuvfS14/view?usp=sharing) and place it in `graspness_implementation/data/`
+
+1. **Training and Evaluation**
+    ```
+    # Training command
+    python -u -m habitat_baselines.run \
+       --config-name=rearrange/rearrange_w_grasping.yaml
+
+    # Evaluate your trained model ("eval_ckpt_path_dir" must be changed in the config)
+    python -u -m habitat_baselines.run \
+       --config-name=rearrange/rearrange_w_grasping.yaml \
+        habitat_baselines.evaluate=True
+    ```
 
 ## Debugging an environment issue
 
