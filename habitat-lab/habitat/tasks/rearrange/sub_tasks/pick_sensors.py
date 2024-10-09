@@ -308,7 +308,7 @@ class RearrangePickReward(RearrangeReward):
                 grasp_orientation_difference = (self.prev_good_grasping_orientation_measure - grasp_reward_orientation)
                 grasp_infoGain_difference = (grasp_reward_infoGain - self.prev_good_grasping_info_gain_measure)
                 
-                grasping_reward = 100 *((grasp_distance_difference + grasp_orientation_difference)*(1 - weight) + (grasp_infoGain_difference * weight))
+                grasping_reward = 100 *((grasp_distance_difference + grasp_orientation_difference)*(weight) + (grasp_infoGain_difference * (1 - weight)))
                 
             self.prev_good_grasping_distance_measure = grasp_reward_distance 
             self.prev_good_grasping_info_gain_measure = grasp_reward_infoGain

@@ -636,7 +636,7 @@ class PointNavResNetNet(Net):
 
         x.append(prev_actions)
 
-        grasp_k = observations["grasp_sensor"][:,:,:64].permute(0, 2, 1)
+        grasp_k = observations["grasp_sensor"][:,:64,:].permute(0, 2, 1)
 
         # print("===== observations[grasp_sensor] =========", observations["grasp_sensor"].shape)
 
